@@ -465,7 +465,7 @@ class DeviceFilter(CustomFieldFilterSet, django_filters.FilterSet):
 
     class Meta:
         model = Device
-        fields = ['serial']
+        fields = ['serial','position']
 
     def search(self, queryset, name, value):
         if not value.strip():
@@ -473,6 +473,7 @@ class DeviceFilter(CustomFieldFilterSet, django_filters.FilterSet):
         return queryset.filter(
             Q(name__icontains=value) |
             Q(serial__icontains=value.strip()) |
+            Q(position__icontains=value.strip()) |
             Q(inventory_items__serial__icontains=value.strip()) |
             Q(asset_tag=value.strip()) |
             Q(comments__icontains=value)
